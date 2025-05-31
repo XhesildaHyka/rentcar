@@ -1,0 +1,105 @@
+{% load static %}
+<header style="background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.1); padding: 10px 0;">
+  <div class="container">
+    <nav class="navbar">
+      <a class="navbar-brand" href="{% url 'home' %}" style="font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: bold; color: black; display: flex; align-items: center; text-decoration: none;">
+        <img src="{% static 'image/logo1.png' %}" alt="Logo" style="width: 60px; height: auto; margin-right: 10px;"> Hyka Rent
+      </a>
+      <div class="nav-toggle" onclick="toggleMenu()">☰</div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="{% url 'home' %}">Rreth Nesh</a></li>
+        <li><a href="{% url 'rezervpage' id=1 %}">Rezervo</a></li>
+        <li><a href="{% url 'contactpage' %}">Na kontaktoni</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .navbar-brand {
+    color: black;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+  }
+
+  .navbar-brand:hover {
+    transform: scale(1.05);
+  }
+
+  ul.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+  }
+
+  ul.nav-links li a {
+    color: black;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 8px 15px;
+    border-radius: 20px;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  ul.nav-links li a:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: black;
+  }
+
+  .nav-toggle {
+    display: none;
+    font-size: 2rem;
+    color: black;
+    cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    ul.nav-links {
+      display: none;
+      flex-direction: column;
+      background: white;
+      position: absolute;
+      top: 70px;
+      right: 20px;
+      width: 200px;
+      border-radius: 10px;
+      padding: 15px 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    ul.nav-links li {
+      margin: 10px 0;
+      text-align: center;
+    }
+
+    ul.nav-links.show {
+      display: flex;
+    }
+
+    .nav-toggle {
+      display: block;
+    }
+  }
+</style>
+
+<script>
+  function toggleMenu() {
+    const navLinks = document.getElementById('navLinks');
+    navLinks.classList.toggle('show');
+  }
+</script>

@@ -1,0 +1,68 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+    #dropZone {
+        border: 2px dashed #ccc;
+        padding: 20px;
+        text-align: center;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+        color: #888;
+    }
+    #dropZone.dragover {
+        background-color: #eef;
+        border-color: #007bff;
+        color: #007bff;
+    }
+    .edit-car-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 10px;
+    }
+    .edit-car-actions button {
+        margin-left: 5px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Paneli i Administratorit</h1>
+
+    <div id="loginSection">
+        <h2>Hyrje</h2>
+        <input type="email" id="adminEmail" placeholder="Email" required>
+        <input type="password" id="adminPassword" placeholder="Fjalëkalimi" required>
+        <button class="btn" onclick="login()">Hyr</button>
+    </div>
+
+    <div id="adminSection" style="display:none;">
+        <h2>Menaxhimi i Makinave</h2>
+
+        <form id="addCarForm">
+            <input type="text" id="newCarName" placeholder="Emri i makinës" required>
+
+            <div id="dropZone">Hidh këtu foton ose kliko për ta zgjedhur</div>
+            <input type="file" id="newCarImageFile" accept="image/*" style="display:none;" required>
+
+            <textarea id="newCarDesc" placeholder="Përshkrimi" required></textarea>
+            <input type="text" id="newCarPrice" placeholder="Çmimi (p.sh. 45€/ditë)" required>
+            <button type="submit" class="btn">Shto Makinë</button>
+        </form>
+
+        <h3>Lista e Makinave</h3>
+        <div id="editCarsList"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/script.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,187 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+{% include 'navbar.html' %}
+
+
+  <!-- MAIN SECTION -->
+  <section class="krye">
+    <div class="container">
+      <div class="row align-items-center">
+        <!-- Text Section -->
+        <div class="col-lg-6 text-start">
+        
+          <p class="lead fw-bold" style="font-family: Georgia; font-size: xx-large;">Makinat më të mira me qira në Shqipëri</p>
+        </div>
+      </div>
+
+      <div class="image-container">
+        {% if carousel_images %}
+        {% for image in carousel_images %}
+        {% if image.image1 %}
+        <img src="{{ image.image1.url }}" alt="Moisturizer" class="firstimage"
+          class="img-fluid rounded shadow image main-image">
+        {% endif %}
+        {% if image.image %}
+        <img src="{{ image.image.url }}" alt="Additional Image" class="top-right-image">
+        {% endif %}
+        {% if image.image3 %}
+        <img src="{{ image.image3.url }}" alt="Image" class="bottom-left-image ">
+        {% endif %}
+        {% endfor %}
+        {% else %}
+        <p>No carousel images available</p>
+        {% endif %}
+      </div>
+
+
+      <!-- Product Info -->
+      <div class="product-info">
+        <h2 class="fw-bold">Hyka Rent</h2>
+        <p>Rezervoni tani dhe shijoni udhëtimin tuaj!</p>
+        <a href="#" style="text-decoration: none; color: #000;" class="btn">Rezervo Tani</a>
+
+      </div>
+    </div>
+  </section>
+<!-- <section class="hero">
+    <h2>Makinat më të mira me qira në Shqipëri</h2>
+    <p>Rezervoni tani dhe shijoni udhëtimin tuaj!</p>
+    <div class="container">
+        {% for rezerv in rent %}
+        <div class="car-card">
+            <a href="{% url 'rezervpage' rezerv.pk %}" class="btn">Rezervo Tani</a>
+        </div>
+        {% empty %}
+        <p>Aktualisht nuk ka makina në dispozicion për qira.</p>
+        {% endfor %}
+    </div>
+</section> -->
+
+<section class="about">
+    <div class="container">
+        <h2>Pse të na zgjidhni ne?</h2>
+        <div class="features">
+            <div class="feature">
+                <i class="fas fa-car"></i>
+                <h3>Flotë e larmishme</h3>
+                <p>Makinat tona të reja dhe të mirëmbajtura për çdo nevojë.</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>Kudo në Shqipëri</h3>
+                <p>Ofrojmë shërbime në Shqipërinë e Mesme dhe Shqipërinë e Jugut.</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-euro-sign"></i>
+                <h3>Çmime konkurruese</h3>
+                <p>Oferta më të mira në treg me rezervim minimal 3 ditësh.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+  <!-- NEW ARRIVALS -->
+  <main style="margin-bottom: 50px; position: relative;">
+    <section class="container my-5" id="arrival-section">
+      <h1 class="text-center mb-4"
+        style="font-size: 2rem; font-weight: 600; color: #100f10; font-family: Georgia, 'Times New Roman', Times, serif;">
+        Makinat e Reja :
+      </h1>
+
+      <!-- Scrollable Container for Latest Arrivals -->
+      <div class="arrivals-container" id="arrival-scroll"
+        style="display: flex; overflow-x: auto; scroll-behavior: smooth; width: 100%; justify-content: flex-start; position: relative; padding-bottom: 20px;">
+        {% for arrival in arrivals %}
+        <div class="arrival-item card mx-3" style="flex-shrink: 0; width: 250px; transition: transform 0.3s ease;">
+          <img src="{{ arrival.image.url }}" class="card-img-top" alt="..."
+            style="height: 300px; object-fit: cover; width: 100%; border-radius: 10px;">
+          <div class="card-body text-center"
+            style="padding: 1.5rem; background-color: #f8f9fa; border-radius: 0 0 10px 10px;">
+            <h5 class="card-title" style="font-size: 1.2rem; font-weight: 500;">{{ arrival.name }}</h5>
+            <a href="{% url 'detailItem' arrival.pk %}" class="btn mt-auto px-4 py-2"
+              style="background-color: #5d575a; color: white; border-radius: 25px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">
+              SHIKO DETAJET
+            </a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- Custom Navigation Buttons -->
+      <span class="scroll-btn left" class="arrivalscroll1" onclick="scrollArrivals(-1)"
+        style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); font-size: 2rem; color: black; cursor: pointer; transition: color 0.3s; z-index: 10;">
+        &#60;
+      </span>
+
+      <span class="scroll-btn right" class="arrivalscroll2" onclick="scrollArrivals(1)"
+        style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); font-size: 2rem; color: black; cursor: pointer; transition: color 0.3s; z-index: 10;">
+        &#62;
+      </span>
+    </section>
+  </main>
+
+
+
+<section style="background: linear-gradient(to right, #e0f7fa, #ffffff); color: #333; padding: 50px 20px; text-align: center; font-family: 'Arial', sans-serif;">
+    <div style="max-width: 1200px; margin: 0 auto;">
+        <h2 style="font-size: 2.5rem; margin-bottom: 30px; color: #00796b;">Si të rezervoni?</h2>
+        <ul style="list-style: none; padding: 0; margin: 30px 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+            <li style="background: #ffffff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 20px; border-radius: 10px; font-size: 1.2rem; transition: transform 0.3s ease;">
+                <span style="font-size: 2rem;">🚗</span><br> Zgjidhni makinën tuaj të preferuar
+            </li>
+            <li style="background: #ffffff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 20px; border-radius: 10px; font-size: 1.2rem; transition: transform 0.3s ease;">
+                <span style="font-size: 2rem;">📝</span><br> Plotësoni formularin e rezervimit
+            </li>
+            <li style="background: #ffffff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 20px; border-radius: 10px; font-size: 1.2rem; transition: transform 0.3s ease;">
+                <span style="font-size: 2rem;">✅</span><br> Prisni konfirmimin nga ana jonë
+            </li>
+            <li style="background: #ffffff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 20px; border-radius: 10px; font-size: 1.2rem; transition: transform 0.3s ease;">
+                <span style="font-size: 2rem;">📍</span><br> Merrni makinën në vendin e caktuar
+            </li>
+        </ul>
+        <p style="margin-top: 20px; font-size: 1rem; color: #555; max-width: 600px; margin-left: auto; margin-right: auto;">
+            Ne ofrojmë dorëzim të makinave në Shqipërinë e Mesme dhe Shqipërinë e Jugut.
+        </p>
+        <p style="margin-top: 15px; font-size: 1rem; color: #555;">
+            Gjithashtu mund të na telefononi direkt në <strong style="color: #00796b;">+355 69 55 47 981</strong> për informacione të tjera.
+        </p>
+    </div>
+</section>
+
+
+
+
+
+{% endblock %}
+
+{% block script %}
+
+
+<!-- javascript to handle scrolling for arrivals -->
+<script>
+  function scrollArrivals(direction) {
+    const container = document.getElementById('arrival-scroll');
+    const scrollAmount = 300; 
+    container.scrollBy({left: direction * scrollAmount,behavior: 'smooth'});
+  }
+</script>
+
+
+<script src="{% static 'js/script.js' %}"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script type="text/javascript">
+    (function () {
+        emailjs.init('QsnVbhy-zMfNwoVYN');
+    })();
+</script>
+{% endblock %}
+
