@@ -5,3 +5,4 @@ from .models import *
 admin.site.register(Rezerv)
 admin.site.register(CarouselImage)
 admin.site.register(Contact)
+admin.site.register(Reservation)

@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from .models import *  
 from django.core.paginator import Paginator 
 from django.contrib import messages
-
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Rezerv, Reservation  # assuming Reservation is your reservation model
+from .forms import ReservationForm
 
 
 
@@ -17,24 +19,58 @@ def home(request):
     }
     return render(request, 'home.html', context)
 
-def rezervpage(request,id):
-    rent = Rezerv.objects.get(pk=id) 
-    rent= Rezerv.objects.all()  # Merr të gjitha makinat
+def rezervpage(request, id):
+    # Get sort parameter from GET request
+    sort_order = request.GET.get('sort', 'default')
+
+    if sort_order == 'price_asc':
+        rent = Rezerv.objects.all().order_by('price')  # Assuming 'price' is your field
+    elif sort_order == 'price_desc':
+        rent = Rezerv.objects.all().order_by('-price')
+    else:
+        rent = Rezerv.objects.all()  # Default order
+
     paginator = Paginator(rent, 8)  # Show 8 cars per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+
     context = {
         'page_obj': page_obj,
+        'sort_order': sort_order,  # So the template knows which option is selected
     }
     return render(request, 'rezervo.html', context)
 
-
 def rezervpage_detail(request, pk):
-    detailItem = Rezerv.objects.get(pk=pk)
+    detailItem = get_object_or_404(Rezerv, pk=pk)
+    form = ReservationForm()
+    
+    if request.method == 'POST':
+        form = ReservationForm(request.POST)
+        if form.is_valid():
+            start_date = form.cleaned_data['start_date']
+            end_date = form.cleaned_data['end_date']
+
+            # Check for overlapping reservations for this car
+            overlapping = Reservation.objects.filter(
+                car=detailItem,
+                start_date__lte=end_date,
+                end_date__gte=start_date
+            )
+            if overlapping.exists():
+                messages.error(request, "This car is already reserved for the selected dates.")
+            else:
+                reservation = form.save(commit=False)
+                reservation.car = detailItem
+                reservation.save()
+                messages.success(request, "Your reservation has been placed successfully!")
+                return redirect('home')  # or wherever you want to redirect after booking
+    
     context = {
         'detailItem': detailItem,
+        'form': form
     }
     return render(request, 'rezervodetail.html', context)
+
 
 def carousel_images(request):
     carousel_images = CarouselImage.objects.get()

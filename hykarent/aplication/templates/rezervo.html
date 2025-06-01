@@ -15,32 +15,78 @@
 
   h2 {
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     margin-top: 30px;
     color: #222;
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  form {
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  form label, form select {
+    font-size: 1.1rem;
+    margin-right: 10px;
+  }
+
+  .pagination {
+    text-align: center;
+    margin: 20px 0;
+  }
+
+  .pagination a {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    margin: 0 5px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+  }
+
+  .pagination a:hover {
+    background-color: #0056b3;
+  }
+
+  .makinat {
+    width: 100%;
+    padding: 40px 20px;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   }
 
   .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 30px;
+    justify-items: center;
   }
 
   .makina {
     background: white;
     padding: 20px;
     border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     text-align: center;
+    width: 100%;
+    max-width: 300px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
   .makina:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   }
 
   .makina img {
@@ -52,13 +98,13 @@
 
   .makina h3 {
     margin-top: 15px;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     color: #111;
   }
 
   .makina p {
     margin: 10px 0;
-    color: #666;
+    color: #555;
     font-size: 1rem;
   }
 
@@ -70,6 +116,7 @@
     text-decoration: none;
     border-radius: 25px;
     transition: background 0.3s ease;
+    margin-top: 10px;
   }
 
   .makina .btn:hover {
@@ -82,12 +129,6 @@
     padding: 20px 0;
     text-align: center;
   }
-
-  footer .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 10px;
-  }
 </style>
 {% endblock %}
 
@@ -95,30 +136,51 @@
 {% include 'navbar.html' %}
 
 <main>
-    <section class="makinat">
-        <h2>Makinat tona</h2>
-        <div class="container">
-            {% for rezerv in page_obj %}
-            <div class="makina">
-                <img src="{{ rezerv.image.url }}" alt="{{ rezerv.name }}">
-                <h3>{{ rezerv.name }}</h3>
-                <p><i class="fas fa-phone"></i> {{ rezerv.phone }}</p>
-                <a href="{% url 'detailItem' rezerv.pk %}" class="btn">Rezervo Tani</a>
-            </div>
-            {% empty %}
-            <p style="text-align: center; font-size: 1.2rem; color: #666;">Nuk ka makina për momentin.</p>
-            {% endfor %}
-        </div>
-    </section>
+  <form method="get">
+  <form method="get">
+    <label for="sort">Rendit sipas çmimit:</label>
+    <select name="sort" id="sort" onchange="this.form.submit()">
+      <option value="default" {% if sort_order == 'default' %}selected{% endif %}>Default</option>
+      <option value="price_asc" {% if sort_order == 'price_asc' %}selected{% endif %}>Nga më e lira te më e shtrenjta</option>
+      <option value="price_desc" {% if sort_order == 'price_desc' %}selected{% endif %}>Nga më e shtrenjta te më e lira</option>
+    </select>
+  </form>
+
+  <div class="pagination">
+    {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}&sort={{ sort_order }}">Previous</a>
+    {% endif %}
+
+    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}&sort={{ sort_order }}">Next</a>
+    {% endif %}
+  </div>
+
+  <section class="makinat">
+    <h2>Makinat tona</h2>
+    <div class="container">
+      {% for rezerv in page_obj %}
+      <div class="makina">
+        <img src="{{ rezerv.image.url }}" alt="{{ rezerv.name }}">
+        <h3>{{ rezerv.name }}</h3>
+        <p>€ {{ rezerv.price }}/ditë</p>
+        <p><i class="fas fa-phone"></i> {{ rezerv.phone }}</p>
+        <a href="{% url 'detailItem' rezerv.pk %}" class="btn">Rezervo Tani</a>
+      </div>
+      {% empty %}
+      <p style="text-align: center; font-size: 1.2rem; color: #666;">Nuk ka makina për momentin.</p>
+      {% endfor %}
+    </div>
+  </section>
 </main>
-
-
 
 <script src="{% static 'js/script.js' %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script>
-    (function () {
-        emailjs.init('QsnVbhy-zMfNwoVYN');
-    })();
+  (function () {
+    emailjs.init('QsnVbhy-zMfNwoVYN');
+  })();
 </script>
 {% endblock %}

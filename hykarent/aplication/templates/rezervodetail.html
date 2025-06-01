@@ -5,11 +5,13 @@
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 <style>
+  /* Existing styles */
   .detail-card {
     border: none;
     overflow: hidden;
     transition: all 0.3s ease-in-out;
   }
+
   .detail-card img {
     width: 100%;
     height: 450px;
@@ -17,23 +19,28 @@
     border-top-left-radius: 12px;
     border-bottom-left-radius: 12px;
   }
+
   .detail-card .card-body {
     padding: 2rem;
   }
+
   .detail-card h2 {
     font-size: 1.8rem;
     font-weight: bold;
     color: #343a40;
   }
+
   .detail-card p {
     font-size: 1rem;
     color: #6c757d;
   }
+
   .price {
     font-size: 1.5rem;
     font-weight: bold;
     color: #d63384;
   }
+
   .btn-custom {
     padding: 12px 20px;
     border-radius: 8px;
@@ -42,19 +49,56 @@
     text-transform: uppercase;
     letter-spacing: 1px;
   }
+
   .btn-back {
     background-color: #d63384;
     color: white;
   }
+
   .btn-back:hover {
     background-color: #b0286e;
   }
+
   .btn-cart {
     background-color: green;
     color: white;
   }
+
   .btn-cart:hover {
     background-color: darkgreen;
+  }
+
+  /* New reservation form styles */
+  .reservation-form {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+  }
+
+  .reservation-form h3 {
+    color: #343a40;
+  }
+
+  .reservation-form input,
+  .reservation-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    border: 1px solid #ced4da;
+  }
+
+  .reservation-form button {
+    background-color: #d63384;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+  }
+
+  .reservation-form button:hover {
+    background-color: #b0286e;
   }
 </style>
 {% endblock %}
@@ -63,26 +107,26 @@
 {% include 'navbar.html' %}
 
 <div class="container py-5">
-  <div class="row justify-content-center">
-    <div class="col-md-10 col-lg-8">
-      <div class="card detail-card shadow-lg rounded-4">
-        <div class="row g-0">
-          <!-- Image Section -->
-          <div class="col-md-6">
-            <img src="{{ detailItem.image.url }}" alt="{{ detailItem.name }}" class="img-fluid">
-          </div>
-          <!-- Content Section -->
-          <div class="col-md-6 d-flex flex-column justify-content-center p-4">
-            <h2>{{ detailItem.name }}</h2>
-            <p>{{ detailItem.description }}</p>
-            <p class="price">€{{ detailItem.price }}/ditë</p>
-            <div class="mt-3 d-flex gap-3">
-              <a href="{% url 'contactpage' %}" class="btn">Na kontaktoni</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="reservation-form shadow-lg">
+    <h3>Rezervo {{ detailItem.name }}</h3>
+    {% if messages %}
+      {% for message in messages %}
+        {% if 'error' in message.tags %}
+          <p style="color: red;">{{ message }}</p>
+        {% else %}
+          <p style="color: green;">{{ message }}</p>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+
+    <form method="post" action="">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-cart mt-2">Rezervo tani</button>
+    </form>
   </div>
 </div>
 {% endblock %}
+
+
+
