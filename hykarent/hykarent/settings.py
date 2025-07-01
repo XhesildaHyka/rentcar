@@ -26,8 +26,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # DEBUG = True
 
 # ALLOWED_HOSTS = []
+SECRET_KEY = 'test-secret-key-1234567890'
 
-SECRET_KEY = os.environ.get('SECRET_KEY', 'unsafe-secret')
+
 
 DEBUG = True
 ALLOWED_HOSTS = ['*']  # For testing only
