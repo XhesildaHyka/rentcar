@@ -16,6 +16,11 @@ body {
 
 
 /* --- BEGINNING --- */
+.titulli {
+    font-family: Georgia;
+    font-size: xx-large;
+}
+
 /* Hero Section */
 .krye {
     background: linear-gradient(to right, #1f1f1f, #333);
@@ -533,7 +538,7 @@ nav ul li a:hover {
 
 /* Footer */
 footer {
-    background: var(--dark-color);
+
     color: white;
     padding: 40px 0 15px;
     margin-top: 30px;
@@ -593,84 +598,6 @@ footer p {
     width: 100%;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .logo-header {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .logo-header img {
-        margin-right: 0;
-        margin-bottom: 10px;
-    }
-
-    nav ul {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    nav ul li {
-        margin-bottom: 10px;
-    }
-
-    .hero {
-        padding: 80px 0;
-    }
-
-    .hero h2 {
-        font-size: 26px;
-    }
-
-    .hero p {
-        font-size: 16px;
-    }
-
-    .feature {
-        min-width: 100%;
-        margin-bottom: 15px;
-    }
-
-    .reservation-form form {
-        padding: 20px 15px;
-    }
-
-    .edit-car-item {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .edit-car-actions {
-        margin-top: 10px;
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    .edit-car-actions button {
-        width: 48%;
-    }
-}
-
-/* Animation */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.hero,
-.about,
-.reservation-info,
-.cars,
-.reservation-form {
-    animation: fadeIn 0.8s ease-out;
-}
 
 
 /* Responsive Fixes */
@@ -688,32 +615,77 @@ footer p {
     .product-info {
         right: 10px;
         padding: 20px;
+        /* padding-bottom: -79px; */
+        margin-bottom: -120px;
     }
 }
 
 @media screen and (max-width: 768px) {
-    #carousel-slides div p {
-        font-size: 13px;
-        line-height: 1.8;
-        max-width: 260px;
-        text-align: center;
-        padding: 0 10px;
-    }
 
-    .krye {
-        padding: 30px 10px;
-    }
-
+    /* Make images stack vertically with some spacing */
     .firstimage,
     .bottom-left-image,
     .top-right-image {
-        width: 250px;
-        position: relative;
-        margin-top: 10px;
+        width: 100%;
+        max-width: 300px;
+        margin: 15px auto;
+        position: static;
+        display: block;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
     }
 
+    /* Optional: adjust parent container if needed */
+    .image-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        /* space between images */
+        padding: 0 10px;
+    }
+      .kategorite-container {
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 1rem;
+    gap: 2rem;
+  }
+
+  .category-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    min-width: auto;
+  }
+
+  .category-btn {
+    padding: 12px 20px;
+    font-size: 0.85rem;
+  }
+
+  .brand-list {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .brand-card {
+    max-width: 90%;
+    padding: 1.2rem;
+  }
+
+  .brand-card img {
+    height: 120px;
+  }
+
+  .brand-btn {
+    font-size: 0.85rem;
+    padding: 12px 24px;
+  }
 
 }
+
 
 @media screen and (max-width: 651px) {
     #carousel-slides div p {
@@ -746,8 +718,8 @@ footer p {
     .top-right-image {
         width: 100%;
         height: auto;
-        margin-top: -46px;
-
+        margin-top: 60px;
+        margin-left: -126px;
     }
 
     .bottom-left-image {
@@ -755,9 +727,10 @@ footer p {
         height: auto;
         padding-bottom: -3px;
         margin-bottom: 89px;
-        margin-top: -170px;
+        margin-top: -280px;
 
     }
+
 
 
 
@@ -765,16 +738,43 @@ footer p {
 
 @media screen and(max-width: 320px) {
 
+
+
     .product-info {
         position: absolute;
-        bottom: -30px;
+        bottom: 13px;
         right: 40px;
         background: rgba(30, 30, 30, 0.95);
-        /* Darker, modern card */
         padding: 30px;
-        border-radius: 10px;
+        border-radius: 129px;
         text-align: center;
-        max-width: 300px;
+        max-width: 387px;
         color: #f5f5f5;
+    }
+
+    .product-info {
+        right: 10px;
+        padding: -24px;
+        margin-top: 67px;
+        margin-bottom: -209px;
+        /* margin: 42px; */
+        margin-left: 86px;
+        margin-right: -11px;
+        font-size: -79.5rem;
+    }
+
+    .bottom-left-image {
+        width: 100%;
+        height: auto;
+        padding-bottom: -3px;
+        margin-bottom: 139px;
+        margin-top: -258px;
+    }
+
+    .top-right-image {
+        width: 100%;
+        height: auto;
+        margin-top: 85px;
+        margin-left: -130px;
     }
 }

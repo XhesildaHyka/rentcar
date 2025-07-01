@@ -1,16 +1,33 @@
 {% load static %}
+
 <header style="background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.1); padding: 10px 0;">
   <div class="container">
     <nav class="navbar">
-      <a class="navbar-brand" href="{% url 'home' %}" style="font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: bold; color: black; display: flex; align-items: center; text-decoration: none;">
-        <img src="{% static 'image/logo1.png' %}" alt="Logo" style="width: 60px; height: auto; margin-right: 10px;"> Hyka Rental
-      </a>
-      <div class="nav-toggle" onclick="toggleMenu()">☰</div>
+      <!-- Left: Logo -->
+      <div class="navbar-left">
+        <a class="navbar-brand" href="{% url 'home' %}">
+          <img src="{% static 'image/logo1.png' %}" alt="Logo" style="width: 60px; height: auto; margin-right: 10px;">
+          Hyka Rental
+        </a>
+      </div>
+
+      <!-- Center: Navigation Links -->
       <ul class="nav-links" id="navLinks">
-        <li><a href="{% url 'home' %}">Rreth Nesh</a></li>
-        <li><a href="{% url 'rezervpage' id=1 %}">Rezervo</a></li>
-        <li><a href="{% url 'contactpage' %}">Na kontaktoni</a></li>
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'about' %}">About us</a></li>
+        <li><a href="{% url 'rezervpage' id=1 %}">Book</a></li>
+        <li><a href="{% url 'contactpage' %}">Contact us</a></li>
       </ul>
+
+      <!-- Right: Search Bar -->
+      <form id="searchForm" class="d-flex" role="search" action="{% url 'search' %}" method="get">
+        <input class="form-control me-2" type="text" name="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-primary" type="submit">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
+
+      <div class="nav-toggle" onclick="toggleMenu()">☰</div>
     </nav>
   </div>
 </header>
@@ -26,10 +43,23 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .navbar-left {
+    display: flex;
+    align-items: center;
+    flex: 1;
   }
 
   .navbar-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: bold;
     color: black;
+    display: flex;
+    align-items: center;
     text-decoration: none;
     transition: transform 0.3s ease;
   }
@@ -38,27 +68,41 @@
     transform: scale(1.05);
   }
 
-  ul.nav-links {
+  .nav-links {
     list-style: none;
     display: flex;
+    justify-content: center;
     gap: 30px;
-    margin: 0;
+    flex: 2;
     padding: 0;
+    margin: 0;
+    flex-wrap: wrap;
   }
 
-  ul.nav-links li a {
+  .nav-links li a {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: bold;
     color: black;
     text-decoration: none;
-    font-weight: 600;
-    font-size: 1rem;
     padding: 8px 15px;
     border-radius: 20px;
     transition: background 0.3s ease, color 0.3s ease;
   }
 
-  ul.nav-links li a:hover {
+  .nav-links li a:hover {
     background: rgba(0, 0, 0, 0.1);
-    color: black;
+  }
+
+  .search-form {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: flex-end;
+  }
+
+  .search-form input {
+    margin-right: 10px;
   }
 
   .nav-toggle {
@@ -69,37 +113,40 @@
   }
 
   @media (max-width: 768px) {
-    ul.nav-links {
+    .nav-links,
+    .search-form {
       display: none;
       flex-direction: column;
-      background: white;
-      position: absolute;
-      top: 70px;
-      right: 20px;
-      width: 200px;
-      border-radius: 10px;
-      padding: 15px 0;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      width: 100%;
+      margin-top: 10px;
     }
 
-    ul.nav-links li {
-      margin: 10px 0;
-      text-align: center;
-    }
-
-    ul.nav-links.show {
+    .nav-links.show,
+    .search-form.show {
       display: flex;
+    }
+
+    .navbar {
+      flex-direction: column;
+      align-items: flex-start;
     }
 
     .nav-toggle {
       display: block;
+      margin-left: auto;
     }
   }
 </style>
 
 <script>
   function toggleMenu() {
-    const navLinks = document.getElementById('navLinks');
-    navLinks.classList.toggle('show');
+    document.getElementById('navLinks').classList.toggle('show');
+    document.querySelector('.search-form').classList.toggle('show');
   }
+
+  document.querySelector('#searchForm button').addEventListener('click', function (event) {
+    event.preventDefault();
+    const query = document.querySelector('input[name="search"]').value;
+    window.location.href = `{% url 'search' %}?search=${query}`;
+  });
 </script>

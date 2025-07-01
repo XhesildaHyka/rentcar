@@ -90,7 +90,7 @@
   }
 
   .reservation-form button {
-    background-color: #d63384;
+    background: var(--secondary-color);
     color: white;
     border: none;
     padding: 10px 20px;
@@ -98,7 +98,7 @@
   }
 
   .reservation-form button:hover {
-    background-color: #b0286e;
+    background: var(--secondary-color)
   }
 </style>
 {% endblock %}
@@ -110,23 +110,54 @@
   <div class="reservation-form shadow-lg">
     <h3>Rezervo {{ detailItem.name }}</h3>
     {% if messages %}
-      {% for message in messages %}
-        {% if 'error' in message.tags %}
-          <p style="color: red;">{{ message }}</p>
-        {% else %}
-          <p style="color: green;">{{ message }}</p>
-        {% endif %}
-      {% endfor %}
+    {% for message in messages %}
+    {% if 'error' in message.tags %}
+    <p style="color: red;">{{ message }}</p>
+    {% else %}
+    <p style="color: green;">{{ message }}</p>
+    {% endif %}
+    {% endfor %}
     {% endif %}
 
     <form method="post" action="">
       {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="btn btn-cart mt-2">Rezervo tani</button>
+      <div>
+        <label for="id_name">Emri (Name)</label>
+        {{ form.name }}
+      </div>
+
+      <div>
+        <label for="id_phone">Telefoni (Phone)</label>
+        {{ form.phone }}
+      </div>
+
+      <div>
+        <label for="id_email">Email</label>
+        {{ form.email }}
+      </div>
+
+      <div>
+        <label for="id_pickup_location">Vendi i marrjes (Pickup Location)</label>
+        {{ form.pickup_location }}
+      </div>
+
+      <div>
+        <label for="id_dropoff_location">Vendi i dorëzimit (Drop-off Location)</label>
+        {{ form.dropoff_location }}
+      </div>
+
+      <div>
+        <label for="id_start_date">Data nisjes (Start Date)</label>
+        {{ form.start_date }}
+      </div>
+
+      <div>
+        <label for="id_end_date">Data kthimit (End Date)</label>
+        {{ form.end_date }}
+      </div>
+
+      <button type="submit" class="btn btn-cart mt-2">Përfundo rezervimin! / Complete the booking!</button>
     </form>
   </div>
 </div>
 {% endblock %}
-
-
-
