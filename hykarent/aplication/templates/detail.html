@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<style>
+  /* Keep carousel styles simple & neat */
+  .main-carousel img {
+    width: 100%;
+    max-height: 500px;
+    object-fit: cover;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  }
+
+  .carousel-thumbnails {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+
+  .carousel-thumbnails img {
+    width: 100px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    filter: brightness(0.9);
+  }
+  .carousel-thumbnails img:hover,
+  .carousel-thumbnails img.active-thumb {
+    filter: brightness(1);
+    transform: scale(1.07);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  }
+
+  /* Card styling */
+  .detail-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 36px 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+  }
+
+  /* Headings */
+  .detail-card h2 {
+    font-weight: 700;
+    font-size: 2.3rem;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+
+  .detail-card p.description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 1.8rem;
+  }
+
+  .price {
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: red;
+    margin-bottom: 2rem;
+  }
+
+  /* Section container with subtle background */
+  .info-section {
+    background: #fafafa;
+    border-radius: 12px;
+    padding: 20px 25px;
+    margin-bottom: 25px;
+  }
+
+  /* Section titles */
+  .info-section h5 {
+    font-weight: 600;
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: #444;
+    border-bottom: 2px solid red;
+    padding-bottom: 6px;
+  }
+
+  /* Lists in info sections */
+  .info-section ul {
+    list-style: none;
+    padding-left: 0;
+    columns: 2;
+    column-gap: 40px;
+    color: #555;
+  }
+
+  .info-section ul li {
+    margin-bottom: 0.7rem;
+    font-size: 1rem;
+  }
+
+  /* Single column for smaller screens */
+  @media (max-width: 768px) {
+    .info-section ul {
+      columns: 1;
+    }
+  }
+
+  /* Buttons container */
+  .btn-container {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+  }
+
+  .btn-custom {
+    padding: 12px 32px;
+    font-weight: 600;
+    border-radius: 28px;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-back {
+    background-color: #eaeaea;
+    color: #555;
+  }
+  .btn-back:hover {
+    background-color: red;
+    color: white;
+  }
+
+  .btn-cart {
+    background-color: red;
+    color: white;
+  }
+  .btn-cart:hover {
+    background-color: red;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+{% include 'navbar.html' %}
+
+{% if detailItem.photos.all %}
+<div class="container-fluid p-0">
+  <div id="photoCarousel" class="carousel slide main-carousel" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      {% for photo in detailItem.photos.all %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <img src="{{ photo.image.url }}" class="d-block w-100" alt="{{ detailItem.name }}">
+      </div>
+      {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#photoCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#photoCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+
+<div class="carousel-thumbnails">
+  {% for photo in detailItem.photos.all %}
+    {% if photo.image %}
+    <img src="{{ photo.image.url }}" data-index="{{ forloop.counter0 }}" alt="Thumb">
+    {% endif %}
+  {% endfor %}
+</div>
+{% endif %}
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10 col-lg-8">
+      <div class="card detail-card">
+        <div >
+          <h2>{{ detailItem.name }}</h2>
+          <p class="description">{{ detailItem.description }}</p>
+          <p class="price">€{{ detailItem.price }}/day</p>
+
+          <!-- Information Section -->
+          <div class="info-section">
+            <h5>Information</h5>
+            <ul>
+              <li>Production Year: {{ detailItem.year }}</li>
+              <li>Seats: {{ detailItem.seats }}</li>
+              <li>Transmission: {{ detailItem.transmission }}</li>
+              <li>Fuel Type: {{ detailItem.fuel_type }}</li>
+              <li>Engine Capacity: {{ detailItem.engine_capacity }} cc</li>
+              <li>Fuel Policy: {{ detailItem.fuel_policy }}</li>
+              <li>Working Hours: {{ detailItem.working_hours }}</li>
+              <li>Delivery Outside Working Hours: {% if detailItem.delivery_outside_hours %}Yes{% else %}No{% endif %}</li>
+              <li>Deposit Required: {% if detailItem.deposit_required %}Yes{% else %}No{% endif %}</li>
+              <li>Cancel free of charge before: {{ detailItem.cancel_before_days }} days</li>
+              <li>Notice period: {{ detailItem.notice_period }} days</li>
+            </ul>
+          </div>
+
+          <!-- Seasonal Pricing Section -->
+          <div class="info-section">
+            <h5>Seasonal Pricing & Guarantees</h5>
+            <ul>
+              <li>Guarantee (Low Season): €{{ detailItem.guarantee_low_season }}</li>
+              <li>Guarantee (High Season): €{{ detailItem.guarantee_high_season }}</li>
+              <li>Minimum duration (Low Season): {{ detailItem.min_days_low }} days</li>
+              <li>Minimum duration (High Season): {{ detailItem.min_days_high }} days</li>
+            </ul>
+          </div>
+
+          <!-- Delivery Section -->
+          <div class="info-section">
+            <h5>Delivery Locations</h5>
+            <ul>
+              {% for location in detailItem.delivery_locations.all %}
+                <li>{{ location.location }} – €{{ location.price }}</li>
+              {% empty %}
+                <li>No delivery options.</li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <!-- Insurance Section -->
+          <div class="info-section">
+            <h5>Insurance Options</h5>
+            <ul>
+              {% for insurance in detailItem.insurance_options.all %}
+                <li>{{ insurance.name }} – €{{ insurance.price_per_day }}/day</li>
+              {% empty %}
+                <li>No insurance available.</li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <!-- Cross Border Section -->
+          <div class="info-section">
+            <h5>Cross Border Info</h5>
+            <ul>
+              <li>Allowed: {% if detailItem.cross_border_allowed %}Yes (€{{ detailItem.cross_border_fee }}){% else %}No{% endif %}</li>
+              <li>Assistance: {% if detailItem.cross_border_assistance %}Yes (€{{ detailItem.cross_border_assistance_fee }}){% else %}No{% endif %}</li>
+              <li>KM Limit: {{ detailItem.cross_border_km_limit }} km</li>
+            </ul>
+          </div>
+
+          <div class="btn-container">
+            <a href="{% url 'rezervpage' id=1 %}" class="btn btn-custom btn-back">Back to cars</a>
+            <a href="{% url 'detailItem' detailItem.id %}" class="btn btn-custom btn-cart">Rezervo tani! / Book Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const thumbnails = document.querySelectorAll('.carousel-thumbnails img');
+    const carouselElement = document.getElementById('photoCarousel');
+
+    thumbnails.forEach(thumb => {
+      thumb.addEventListener('click', () => {
+        const index = parseInt(thumb.getAttribute('data-index'));
+
+        // Remove active class from all thumbnails
+        thumbnails.forEach(t => t.classList.remove('active-thumb'));
+        // Add active class to clicked thumbnail
+        thumb.classList.add('active-thumb');
+
+        // Use Bootstrap 5 Carousel API to move to the clicked slide
+        const carousel = bootstrap.Carousel.getInstance(carouselElement);
+        carousel.to(index);
+      });
+    });
+
+    // Set initial active thumbnail
+    if (thumbnails.length > 0) {
+      thumbnails[0].classList.add('active-thumb');
+    }
+  });
+</script>
+
+{% endblock %}

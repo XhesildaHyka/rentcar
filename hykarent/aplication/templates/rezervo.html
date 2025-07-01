@@ -26,11 +26,11 @@
     align-items: center;
     padding: 20px;
   }
-
+/* 
   form {
     margin-bottom: 30px;
     text-align: center;
-  }
+  } */
 
   form label, form select {
     font-size: 1.1rem;
@@ -76,12 +76,12 @@
   .makina {
     background: white;
     padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+ 
     text-align: center;
     width: 100%;
     max-width: 300px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-right: 105px;
   }
 
   .makina:hover {
@@ -138,7 +138,7 @@
 <main>
   <form method="get">
   <form method="get">
-    <label for="sort">Rendit sipas çmimit:</label>
+    <label for="sort">Sort by price:</label>
     <select name="sort" id="sort" onchange="this.form.submit()">
       <option value="default" {% if sort_order == 'default' %}selected{% endif %}>Default</option>
       <option value="price_asc" {% if sort_order == 'price_asc' %}selected{% endif %}>Nga më e lira te më e shtrenjta</option>
@@ -146,7 +146,25 @@
     </select>
   </form>
 
-  <div class="pagination">
+
+
+  <section class="makinat">
+    <h2>Our cars:</h2>
+    <div class="container">
+      {% for rezerv in page_obj %}
+      <div class="makina">
+        <img src="{{ rezerv.image.url }}" alt="{{ rezerv.name }}">
+        <h3>{{ rezerv.name }}</h3>
+        <p>€ {{ rezerv.price }}/day</p>
+        <!-- <p><i class="fas fa-phone"></i> {{ rezerv.phone }}</p> -->
+        <a href="{% url 'detailpage' rezerv.pk %}" class="btn">Details</a>
+      </div>
+      {% empty %}
+      <p style="text-align: center; font-size: 1.2rem; color: #666;">Nuk ka makina për momentin./There are no cars available at the moment.</p>
+      {% endfor %}
+    </div>
+  </section>
+    <div class="pagination">
     {% if page_obj.has_previous %}
     <a href="?page={{ page_obj.previous_page_number }}&sort={{ sort_order }}">Previous</a>
     {% endif %}
@@ -157,23 +175,6 @@
     <a href="?page={{ page_obj.next_page_number }}&sort={{ sort_order }}">Next</a>
     {% endif %}
   </div>
-
-  <section class="makinat">
-    <h2>Makinat tona</h2>
-    <div class="container">
-      {% for rezerv in page_obj %}
-      <div class="makina">
-        <img src="{{ rezerv.image.url }}" alt="{{ rezerv.name }}">
-        <h3>{{ rezerv.name }}</h3>
-        <p>€ {{ rezerv.price }}/ditë</p>
-        <p><i class="fas fa-phone"></i> {{ rezerv.phone }}</p>
-        <a href="{% url 'detailItem' rezerv.pk %}" class="btn">Rezervo Tani</a>
-      </div>
-      {% empty %}
-      <p style="text-align: center; font-size: 1.2rem; color: #666;">Nuk ka makina për momentin.</p>
-      {% endfor %}
-    </div>
-  </section>
 </main>
 
 <script src="{% static 'js/script.js' %}"></script>

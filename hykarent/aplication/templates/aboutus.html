@@ -1,0 +1,210 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<style>
+  .about-hero {
+    background: linear-gradient(to right, #e0f7fa, #fff);
+    padding: 80px 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+
+  .about-hero h1,
+  .section-title {
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .about-hero p,
+  .feature p,
+  .testimonial,
+  .cta p {
+    font-size: 1.1rem;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .features, .testimonials, .cta {
+    padding: 60px 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+
+  .feature-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2.5rem;
+  }
+
+  .feature {
+    max-width: 280px;
+    background: #fff;
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    transition: transform 0.3s ease;
+  }
+
+  .feature:hover {
+    transform: translateY(-6px);
+  }
+
+  .feature i {
+    font-size: 2.2rem;
+    color: #007b8f;
+    margin-bottom: 15px;
+  }
+
+  .feature h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .feature span.translation {
+    display: block;
+    font-weight: normal;
+    color: #777;
+    font-size: 0.95rem;
+    margin-top: 6px;
+  }
+
+  .testimonial {
+    background: #f9f9f9;
+    padding: 30px;
+    margin: 20px auto;
+    border-radius: 12px;
+    max-width: 600px;
+    font-style: italic;
+  }
+
+  .cta {
+    background: #007b8f;
+    color: white;
+    padding: 40px 20px;
+  }
+
+  .cta a {
+    background: white;
+    color: #007b8f;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.3s ease;
+  }
+
+  .cta a:hover {
+    background: #e0f7fa;
+  }
+
+  @media (max-width: 768px) {
+    .feature-grid {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .about-hero h1 {
+      font-size: 2rem;
+    }
+
+    .about-hero p {
+      font-size: 1rem;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+{% include 'navbar.html' %}
+
+<main>
+
+  <!-- Hero Section -->
+  <section class="about-hero">
+    <h1>Rreth Nesh <span style="color: #777;">(About Us)</span></h1>
+    <p>
+      Me mbi 3 vite eksperiencë, ne ofrojmë makina të pastra, të besueshme dhe të përballueshme për të eksploruar Shqipërinë me rehati.
+      <br><span style="color: #777;">With 3+ years of experience, we provide clean, reliable, and affordable cars to help you explore Albania comfortably.</span>
+    </p>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <h2 class="section-title">Pse të na zgjidhni? <span style="color: #777;">(Why Choose Us)</span></h2>
+
+    <div class="feature-grid">
+      <div class="feature">
+        <i class="fas fa-car"></i>
+        <h3>Flotë Moderne <span class="translation">(Modern Fleet)</span></h3>
+        <p>Makinat tona janë të pastra dhe të mirëmbajtura, gati për çdo udhëtim.  
+        <span class="translation">Our vehicles are clean and well-maintained, ready for any journey.</span></p>
+      </div>
+
+      <div class="feature">
+        <i class="fas fa-tools"></i>
+        <h3>Mirëmbajtje & Siguri <span class="translation">(Maintenance & Safety)</span></h3>
+        <p>Kontrollim dhe pastrim para çdo marrje.  
+        <span class="translation">Checked and cleaned before every rental.</span></p>
+      </div>
+
+      <div class="feature">
+        <i class="fas fa-map-marked-alt"></i>
+        <h3>Shtrirje e Gjerë <span class="translation">(Wide Coverage)</span></h3>
+        <p>Shërbejmë në Shqipërinë e Mesme dhe Jug.  
+        <span class="translation">We cover Central and Southern Albania.</span></p>
+      </div>
+
+      <div class="feature">
+        <i class="fas fa-clock"></i>
+        <h3>3+ Vite Besueshmëri <span class="translation">(3+ Years of Trust)</span></h3>
+        <p>Të themeluar në vitin 2021, me qindra klientë të kënaqur.  
+        <span class="translation">Founded in 2021, with hundreds of satisfied clients.</span></p>
+      </div>
+
+      <div class="feature">
+        <i class="fas fa-euro-sign"></i>
+        <h3>Çmime të Arsyeshme <span class="translation">(Affordable Rates)</span></h3>
+        <p>Pa tarifa të fshehura dhe kushte transparente.  
+        <span class="translation">No hidden fees, fully transparent terms.</span></p>
+      </div>
+
+      <div class="feature">
+        <i class="fas fa-headset"></i>
+        <h3>Mbështetje 24/7 <span class="translation">(Customer Support)</span></h3>
+        <p>Jemi në dispozicion kurdo që ju nevojitet.  
+        <span class="translation">We’re here whenever you need us.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials">
+    <h2 class="section-title">Çfarë thonë klientët <span style="color: #777;">(What Customers Say)</span></h2>
+    
+    <div class="testimonial">
+      “Eksperienca më e mirë me makinë me qira në Shqipëri! Shërbim i shpejtë dhe i sjellshëm.”<br>
+      <span style="color: #777;">“Best car rental experience in Albania! The service was quick and friendly.”</span>
+    </div>
+    
+    <div class="testimonial">
+      “Kam marrë me qira nga ata dy herë dhe do rikthehem përsëri.”<br>
+      <span style="color: #777;">“I've rented from them twice and will definitely return.”</span>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="cta">
+    <h2>Gati për udhëtimin tuaj? <span style="color: #ddd;">(Ready to Drive?)</span></h2>
+    <a href="{% url 'contactpage' %}">Na Kontaktoni <span style="color: #007b8f;">(Contact Us)</span></a>
+  </section>
+
+</main>
+{% endblock %}

@@ -140,10 +140,11 @@
 <!-- Hero Section -->
 <header class="position-relative w-100">
     <div class="card text-bg-dark">
-        <img src="{% static 'image/range.jpg' %}" class="card-img" alt="..." style="height: 65vh; object-fit: cover;">
+        <img src="{% static 'image/mak.jpg' %}" class="card-img" alt="..." style="height: 65vh; object-fit: cover;">
         <div class="card-img-overlay d-flex align-items-end">
-            <h6 class="card-title p-2 text-white">
-                Për çdo pyetje mund të na kontaktoni në platformat e dhëna ose në hapësirën e rezevevuar më poshtë.
+            <h6 class="card-title p-2 text-bg-dark">
+                Për çdo pyetje mund të na kontaktoni në platformat e dhëna ose në hapësirën e rezervuar më poshtë.<br>
+                (For any questions, you can contact us via the platforms below or using the form below.)
             </h6>
         </div>
     </div>
@@ -153,12 +154,12 @@
 <main class="container my-5">
     <section class="row">
         <div class="col-md-6 contact-info">
-            <h3 class="contact-title">Na kontaktoni nëpërmjet rrjeteve sociale:</h3>
+            <h3 class="contact-title">Na kontaktoni nëpërmjet rrjeteve sociale: <br> (Contact us via social media)</h3>
             <p><a href="https://www.instagram.com/hyka.outlet/" class="custom-border" target="_blank" rel="noopener"><i
                         class="fa-brands fa-instagram"></i> Instagram</a></p>
             <p><a href="https://www.facebook.com/HykaOutlet/" class="custom-border" target="_blank" rel="noopener"><i
                         class="fa-brands fa-facebook"></i> Facebook</a></p>
-            <p><a href="tel:+355683102476" class="custom-border"><i class="fa-solid fa-phone"></i> Phone</a></p>
+            <p><a href="tel:+355683102476" class="custom-border"><i class="fa-solid fa-phone"></i> Telefon (Phone)</a></p>
             <p><a href="https://www.tiktok.com/@xhes122/" class="custom-border" target="_blank" rel="noopener"><i
                         class="fa-brands fa-tiktok"></i> Tiktok</a></p>
             <p><a href="https://wa.me/+355683102476/" class="custom-border" target="_blank" rel="noopener"><i
@@ -166,15 +167,15 @@
         </div>
 
         <div class="col-md-6">
-            <h3 class="contact-title">Dërgoni një mesazh:</h3>
+            <h3 class="contact-title">Dërgoni një mesazh: / Send us a message:
             <form class="row g-3 needs-validation" novalidate method="POST">
                 {% csrf_token %}
                 <div class="col-md-6">
-                    <label for="validationCustom01" class="form-label">Emri:</label>
+                    <label for="validationCustom01" class="form-label">Emri (First Name):</label>
                     <input type="text" class="form-control" id="validationCustom01" name="emri" required>
                 </div>
                 <div class="col-md-6">
-                    <label for="validationCustom02" class="form-label">Mbiemri:</label>
+                    <label for="validationCustom02" class="form-label">Mbiemri (Last Name):</label>
                     <input type="text" class="form-control" id="validationCustom02" name="lastname" required>
                 </div>
                 <div class="col-12">
@@ -183,32 +184,33 @@
                         placeholder="name@example.com">
                 </div>
                 <div class="col-12">
-                    <label for="exampleFormControlInput1" class="form-label">Numri i telefonit:</label>
+                    <label for="exampleFormControlInput1" class="form-label">Numri i telefonit (Phone Number):</label>
                     <input type="tel" class="form-control" id="exampleFormControlInput1" name="phone" required
                         value="{{ phone|default:'' }}">
                 </div>
                 <div class="col-12">
-                    <label for="exampleFormControlTextarea1" class="form-label">Shënimi juaj:</label>
+                    <label for="exampleFormControlTextarea1" class="form-label">Shënimi juaj (Your message):</label>
                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
                         name="sms">{{ sms|default:'' }}</textarea>
                 </div>
                 <div class="col-12">
-                    <button class="btn btn-primary" type="submit">Dërgo</button>
+                    <button class="btn btn-primary" type="submit">Dërgo (Send)</button>
                 </div>
             </form>
         </div>
     </section>
 
-    <!-- Maps Section -->
-    <h2 class="contact-title mb-4">ADRESA:</h2>
-    <div class="row gy-4">
-        <div class="col-md-4">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.643143833046!2d19.5490253!3d40.747877200000005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1345530064541393%3A0x9c4ddf1713f2cc4c!2sHyka%20Rental!5e0!3m2!1sen!2s!4v1748806118420!5m2!1sen!2s"
-                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
+<!-- Maps Section -->
+<h2 class="contact-title mb-4 text-center" style="padding-top: 50px;">ADDRESS:</h2>
+<div class="row gy-4 justify-content-center">
+    <div class="col-md-8 col-lg-6 mx-auto">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.643143833046!2d19.5490253!3d40.747877200000005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1345530064541393%3A0x9c4ddf1713f2cc4c!2sHyka%20Rental!5e0!3m2!1sen!2s!4v1748806118420!5m2!1sen!2s"
+            width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
+</div>
+
 </main>
 
 {% endblock %}

@@ -4,6 +4,91 @@
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+.kategorite-container {
+  display: flex;
+  gap: 6.5rem;
+  padding: 2rem 3rem;
+  font-family: Arial, sans-serif;
+  background: #f9f9f9;
+  margin: 32px 54px;
+  justify-content: flex-start;
+}
+
+.category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;           /* vertical spacing between categories */
+  min-width: 180px;    
+  padding-top: 17px;
+}
+
+.category-btn {
+  background: #5d575a;
+  color: #fff;
+  border-radius: 25px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+  padding: 16px 32px;  /* bigger buttons */
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s ease;
+}
+.category-btn:hover {
+  background: #433f42;
+}
+
+.brand-list {
+  display: flex;
+  gap: 2.8rem;          /* spacing between brand cards */
+  align-items: flex-start;
+}
+
+.brand-card {
+  max-width: 280px;      /* bigger brand cards */
+  padding: 1.8rem;
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  text-align: center;
+}
+.brand-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+}
+
+.brand-card img {
+  width: 100%;
+  height:130px;
+
+  object-fit: cover;
+  display: block;
+}
+
+.brand-btn {
+  margin-top: 1.3rem;
+  background: #5d575a;
+  color: white;
+  border-radius: 25px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.8px;
+  padding: 14px 38px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+.brand-btn:hover {
+  background: #433f42;
+}
+</style>
+
 {% endblock %}
 
 {% block content %}
@@ -11,62 +96,114 @@
 
 
 <!-- MAIN SECTION -->
-<section class="krye">
-  <div class="container">
-    <div class="row align-items-center">
+<!-- MAIN SECTION -->
+<section style="background: linear-gradient(135deg, #00b4db, #0083b0); padding: 5rem 0; color: #fff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 1rem;">
+
+    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 3rem;">
+
       <!-- Text Section -->
-      <div class="col-lg-6 text-start">
+      <div style="flex: 1 1 450px; min-width: 320px;">
 
-        <p class="lead fw-bold" style="font-family: Georgia; font-size: xx-large;">Makinat më të mira me qira në
-          Shqipëri</p>
+        <p style="font-weight: 800; font-size: 2.5rem; line-height: 1.1; margin-bottom: 0.5rem; text-shadow: 0 2px 6px rgba(0,0,0,0.3);">
+          Makinat më të mira me qira në Shqipëri<br>
+          <span style="font-size: 1.3rem; font-weight: 400; color: #d2f1ff; text-shadow: none;">The best rental cars in Albania</span>
+        </p>
+
+        <h2 style="font-family: 'Georgia', serif; font-weight: 900; font-size: 3rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 3px 7px rgba(0,0,0,0.5);">
+          Hyka Rental
+        </h2>
+
+        <p style="font-size: 1.3rem; max-width: 460px; margin-bottom: 2rem; line-height: 1.5; color: #cce7ff; text-shadow: 0 1px 4px rgba(0,0,0,0.2);">
+          Rezervoni tani dhe shijoni udhëtimin tuaj!<br>
+          <em>Book now and enjoy your trip!</em>
+        </p>
+
+        <a href="{% url 'rezervpage' id=1 %}"
+           style="display: inline-block; background: #ff3366; color: white; padding: 15px 50px; font-weight: 700; font-size: 1.3rem; border-radius: 40px; box-shadow: 0 8px 20px rgba(255,51,102,0.5); text-decoration: none; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+          Rezervo Tani / Book Now
+        </a>
+
       </div>
-    </div>
 
-    <div class="image-container">
-      {% if carousel_images %}
-      {% for image in carousel_images %}
-      {% if image.image1 %}
-      <img src="{{ image.image1.url }}" alt="Moisturizer" class="firstimage"
-        class="img-fluid rounded shadow image main-image">
-      {% endif %}
-      {% if image.image %}
-      <img src="{{ image.image.url }}" alt="Additional Image" class="top-right-image">
-      {% endif %}
-      {% if image.image3 %}
-      <img src="{{ image.image3.url }}" alt="Image" class="bottom-left-image ">
-      {% endif %}
-      {% endfor %}
-      {% else %}
-      <p>No carousel images available</p>
-      {% endif %}
-    </div>
+      <!-- Images Section -->
+      <div style="flex: 1 1 450px; min-width: 320px; position: relative;">
 
+        {% if carousel_images %}
+          {% for image in carousel_images %}
+            {% if image.image1 %}
+              <img src="{{ image.image1.url }}" alt="Main car image"
+                   style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 20px; box-shadow: 0 12px 30px rgba(0,0,0,0.25); transition: transform 0.4s ease;">
+            {% endif %}
+            {% if image.image %}
+              <img src="{{ image.image.url }}" alt="Top right image"
+                   style="position: absolute; top: 20px; right: 20px; width: 160px; height: 110px; object-fit: cover; border-radius: 15px; box-shadow: 0 6px 16px rgba(0,0,0,0.2); transition: transform 0.3s ease;">
+            {% endif %}
+            {% if image.image3 %}
+              <img src="{{ image.image3.url }}" alt="Bottom left image"
+                   style="position: absolute; bottom: 20px; left: 20px; width: 160px; height: 110px; object-fit: cover; border-radius: 15px; box-shadow: 0 6px 16px rgba(0,0,0,0.2); transition: transform 0.3s ease;">
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          <p style="color: #ffd6dc; font-style: italic;">No carousel images available / Nuk ka imazhe të disponueshme</p>
+        {% endif %}
 
-    <!-- Product Info -->
-    <div class="product-info">
-      <h2 class="fw-bold">Hyka Rental</h2>
-      <p>Rezervoni tani dhe shijoni udhëtimin tuaj!</p>
-      <a href="#" style="text-decoration: none; color: #000;" class="btn">Rezervo Tani</a>
+      </div>
 
     </div>
+
   </div>
 </section>
-<!-- <section class="hero">
-    <h2>Makinat më të mira me qira në Shqipëri</h2>
-    <p>Rezervoni tani dhe shijoni udhëtimin tuaj!</p>
-    <div class="container">
-        {% for rezerv in rent %}
-        <div class="car-card">
-            <a href="{% url 'rezervpage' rezerv.pk %}" class="btn">Rezervo Tani</a>
-        </div>
-        {% empty %}
-        <p>Aktualisht nuk ka makina në dispozicion për qira.</p>
-        {% endfor %}
-    </div>
-</section> -->
 
-<section class="about">
-  <div class="container">
+
+
+
+
+
+
+<!-- kategorite -->
+<div class="kategorite-container" style="padding-bottom: 80px;">
+  <!-- LEFT: Vertical list of categories -->
+  <div class="category-list">
+    <a href="{% url 'economy' %}" class="category-btn">Economy</a>
+    <a href="{% url 'luxury' %}" class="category-btn">Luxury</a>
+    <a href="{% url 'suv' %}" class="category-btn">SUV</a>
+
+  </div>
+
+  <!-- RIGHT: Horizontal list of car brands -->
+  <div class="brand-list">
+
+    <div class="brand-card">
+      <a href="{% url 'bmv' %}">
+        <img src="{% static 'image/bmw.webp' %}" alt="BMW">
+      </a>
+      <a href="{% url 'bmv' %}" class="brand-btn">BMW</a>
+    </div>
+
+    <div class="brand-card">
+      <a href="{% url 'audi' %}">
+        <img src="{% static 'image/audi.jpg' %}" alt="Audi">
+      </a>
+      <a href="{% url 'audi' %}" class="brand-btn">Audi</a>
+    </div>
+
+    <div class="brand-card">
+      <a href="{% url 'mercedes' %}">
+        <img src="{% static 'image/mercedes.jpg' %}" alt="Mercedes">
+      </a>
+      <a href="{% url 'mercedes' %}" class="brand-btn">Mercedes</a>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+<!-- <section class="about">
+  <div class="container"
+    style="background: linear-gradient(to right, #e0f7fa, #ffffff); color: #333; padding: 50px 20px; text-align: center; font-family: 'Arial', sans-serif;">
     <h2>Pse të na zgjidhni ne?</h2>
     <div class="features">
       <div class="feature">
@@ -86,7 +223,7 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
 
 
@@ -95,7 +232,7 @@
   <section class="container my-5" id="arrival-section">
     <h1 class="text-center mb-4"
       style="font-size: 2rem; font-weight: 600; color: #100f10; font-family: Georgia, 'Times New Roman', Times, serif;">
-      Makinat e Reja :
+      New Arrivals :
     </h1>
 
     <!-- Scrollable Container for Latest Arrivals -->
@@ -108,9 +245,9 @@
         <div class="card-body text-center"
           style="padding: 1.5rem; background-color: #f8f9fa; border-radius: 0 0 10px 10px;">
           <h5 class="card-title" style="font-size: 1.2rem; font-weight: 500;">{{ arrival.name }}</h5>
-          <a href="{% url 'detailItem' arrival.pk %}" class="btn mt-auto px-4 py-2"
+          <a href="{% url 'detailpage' arrival.pk %}" class="btn mt-auto px-4 py-2"
             style="background-color: #5d575a; color: white; border-radius: 25px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">
-            SHIKO DETAJET
+            Details
           </a>
         </div>
       </div>
@@ -134,38 +271,50 @@
 
 
 
-<section
-  style="background: linear-gradient(to right, #e0f7fa, #ffffff); color: #333; padding: 50px 20px; text-align: center; font-family: 'Arial', sans-serif;">
-  <div style="max-width: 1200px; margin: 0 auto;">
-    <h2 style="font-size: 2.5rem; margin-bottom: 30px; color: #00796b;">Si të rezervoni?</h2>
-    <ul
-      style="list-style: none; padding: 0; margin: 30px 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-      <li
-        style="background: #ffffff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 20px; border-radius: 10px; font-size: 1.2rem; transition: transform 0.3s ease;">
-        <span style="font-size: 2rem;">🚗</span><br> Zgjidhni makinën tuaj të preferuar
-      </li>
-      <li
-        style="background: #ffffff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 20px; border-radius: 10px; font-size: 1.2rem; transition: transform 0.3s ease;">
-        <span style="font-size: 2rem;">📝</span><br> Plotësoni formularin e rezervimit
-      </li>
-      <li
-        style="background: #ffffff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 20px; border-radius: 10px; font-size: 1.2rem; transition: transform 0.3s ease;">
-        <span style="font-size: 2rem;">✅</span><br> Prisni konfirmimin nga ana jonë
-      </li>
-      <li
-        style="background: #ffffff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 20px; border-radius: 10px; font-size: 1.2rem; transition: transform 0.3s ease;">
-        <span style="font-size: 2rem;">📍</span><br> Merrni makinën në vendin e caktuar
-      </li>
-    </ul>
-    <p style="margin-top: 20px; font-size: 1rem; color: #555; max-width: 600px; margin-left: auto; margin-right: auto;">
-      Ne ofrojmë dorëzim të makinave në Shqipërinë e Mesme dhe Shqipërinë e Jugut.
+<section style="background: linear-gradient(to right, #e0f7fa, #ffffff); padding: 60px 20px; font-family: Arial, sans-serif;">
+  <div style="max-width: 1100px; margin: 0 auto; text-align: center;">
+
+    <h2 style="font-size: 2.4rem; color: #004d40; margin-bottom: 40px;">
+      Si të rezervoni? <span style="color: #888;">(How to Book?)</span>
+    </h2>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 15px; margin-bottom: 40px;">
+      
+      <div style="background: #ffffff; border-radius: 16px; padding: 30px; box-shadow: 0 6px 16px rgba(0,0,0,0.1); transition: 0.3s;">
+        <div style="font-size: 2rem;">🚗</div>
+        <h3 style="margin-top: 15px; font-size: 1.1rem; color: #333;">Zgjidhni makinën tuaj <br><span style="font-weight: normal; color: #666;">(Choose your preferred car)</span></h3>
+      </div>
+
+      <div style="background: #ffffff; border-radius: 16px; padding: 30px; box-shadow: 0 6px 16px rgba(0,0,0,0.1); transition: 0.3s;">
+        <div style="font-size: 2rem;">📝</div>
+        <h3 style="margin-top: 15px; font-size: 1.1rem; color: #333;">Plotësoni formularin <br><span style="font-weight: normal; color: #666;">(Fill out the booking form)</span></h3>
+      </div>
+
+      <div style="background: #ffffff; border-radius: 16px; padding: 30px; box-shadow: 0 6px 16px rgba(0,0,0,0.1); transition: 0.3s;">
+        <div style="font-size: 2rem;">✅</div>
+        <h3 style="margin-top: 15px; font-size: 1.1rem; color: #333;">Prisni konfirmimin <br><span style="font-weight: normal; color: #666;">(Wait for our confirmation)</span></h3>
+      </div>
+
+      <div style="background: #ffffff; border-radius: 16px; padding: 30px; box-shadow: 0 6px 16px rgba(0,0,0,0.1); transition: 0.3s;">
+        <div style="font-size: 2rem;">📍</div>
+        <h3 style="margin-top: 15px; font-size: 1.1rem; color: #333;">Merrni makinën në vendin e caktuar<br>
+          <span style="font-weight: normal; color: #666;">(Pick up the car at the agreed location)</span></h3>
+      </div>
+
+    </div>
+
+    <p style="font-size: 1rem; color: #555; margin: 0 auto 10px;">Ne ofrojmë dorëzim të makinave në Shqipërinë e Mesme dhe Jug.  
+      <span style="color: #777;">(We offer car delivery in Central and Southern Albania.)</span>
     </p>
-    <p style="margin-top: 15px; font-size: 1rem; color: #555;">
-      Gjithashtu mund të na telefononi direkt në <strong style="color: #00796b;">+355 69 55 47 981</strong> për
-      informacione të tjera.
+    <p style="font-size: 1rem; color: #555;">
+      Mund të na telefononi në <strong style="color: #00796b;">+355 69 55 47 981</strong> për më shumë informacion.  
+      <span style="color: #777;">(You can also call us directly at the number above for more info.)</span>
     </p>
+
   </div>
 </section>
+
+
 
 
 

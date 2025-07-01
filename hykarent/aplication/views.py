@@ -12,10 +12,26 @@ def home(request):
     rent= Rezerv.objects.all()
     carousel_images = CarouselImage.objects.all()  
     arrivals = Rezerv.objects.filter(is_arrival=True)
+    economy_cars = Rezerv.objects.filter(is_economy=True)
+    # compact_cars = Rezerv.objects.filter(is_compact=True)   
+    luxury_cars = Rezerv.objects.filter(is_luxury=True)
+    suv_cars = Rezerv.objects.filter(is_suv=True)
+    bmv_cars = Rezerv.objects.filter(is_bmv=True)
+    mercedes_cars = Rezerv.objects.filter(is_mercedes=True)
+    audi_cars = Rezerv.objects.filter(is_audi=True)
+
     context = {
         'rent': rent,
         'carousel_images': carousel_images,
         'arrivals': arrivals, 
+        'economy_cars': economy_cars,
+        # 'compact_cars': compact_cars,
+        'luxury_cars': luxury_cars,
+        'suv_cars': suv_cars,
+        'bmv_cars': bmv_cars,
+        'mercedes_cars': mercedes_cars,
+        'audi_cars': audi_cars,
+
     }
     return render(request, 'home.html', context)
 
@@ -30,7 +46,7 @@ def rezervpage(request, id):
     else:
         rent = Rezerv.objects.all()  # Default order
 
-    paginator = Paginator(rent, 8)  # Show 8 cars per page
+    paginator = Paginator(rent, 6)  # Show 8 cars per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -62,8 +78,9 @@ def rezervpage_detail(request, pk):
                 reservation = form.save(commit=False)
                 reservation.car = detailItem
                 reservation.save()
-                messages.success(request, "Your reservation has been placed successfully!")
-                return redirect('home')  # or wherever you want to redirect after booking
+                # messages.success(request, "Rezervim i ri!")
+                return redirect('reservation_success', reservation_id=reservation.id)  # Redirect to success page
+ 
     
     context = {
         'detailItem': detailItem,
@@ -71,12 +88,48 @@ def rezervpage_detail(request, pk):
     }
     return render(request, 'rezervodetail.html', context)
 
+def detail(request, id):
+ 
+    detailItem = Rezerv.objects.get(pk=id)
+    context = {"detailItem": detailItem,}
+    return render(request, 'detail.html', context)
+
+
 
 def carousel_images(request):
     carousel_images = CarouselImage.objects.get()
     return render(request, 'home.html', {'carousel_images': carousel_images})
 
+def audi(request):
+    audi_cars = Rezerv.objects.filter(is_audi=True)
+    return render(request, 'audi.html', {'audi_cars': audi_cars})
 
+def mercedes(request):
+    mercedes_cars = Rezerv.objects.filter(is_mercedes=True)
+    return render(request, 'mercedes.html', {'mercedes_cars': mercedes_cars})
+
+def bmv(request):
+    bmv_cars = Rezerv.objects.filter(is_bmv=True)
+    return render(request, 'bmv.html', {'bmv_cars': bmv_cars})
+
+def suv(request):
+    suv_cars = Rezerv.objects.filter(is_suv=True)
+    return render(request, 'suv.html', {'suv_cars': suv_cars})
+# def compact(request):
+#     compact_cars = Rezerv.objects.filter(is_compact=True)
+#     return render(request, 'compactcar.html', {'compact_cars': compact_cars})
+def economy(request):
+    economy_cars = Rezerv.objects.filter(is_economy=True)
+    return render(request, 'economycar.html', {'economy_cars': economy_cars})
+def luxury(request):
+    luxury_cars = Rezerv.objects.filter(is_luxury=True)
+    return render(request, 'luxurycar.html', {'luxury_cars': luxury_cars})
+
+
+
+
+def about(request):
+    return render(request, 'aboutus.html')
 
 def contact(request):
     if request.method == "POST":
@@ -110,3 +163,18 @@ def contact(request):
         return redirect('contactpage')  # redirect te faqja e kontaktit për të shmangur ridërgimin
 
     return render(request, "contactus.html")
+
+
+def search(request):
+    if request.method == "GET":
+        search = request.GET.get("search")
+        if search:
+            posts = Rezerv.objects.filter(name__icontains=search)
+        else:
+            posts = Rezerv.objects.all()  # Show all products if no search term
+        return render(request, 'search.html', {"posts": posts})
+
+
+def reservation_success(request, reservation_id):
+    reservation = get_object_or_404(Reservation, id=reservation_id)
+    return render(request, 'reservation_sucess.html', {'reservation': reservation})

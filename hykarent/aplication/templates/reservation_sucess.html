@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rezervimi u Krye</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            padding: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #28a745;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 80%;
+            max-width: 600px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 24px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Rezervimi juaj u krye me sukses!</h1>
+    <p>Nëse doni të na kontaktoni, mund të na telefononi ose shkruani në numrin <strong>+355 69 55 47 981</strong>.</p>
+    <p>Faleminderit!</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Emri</th>
+                <th>Telefoni</th>
+                <th>Data e Fillimit</th>
+                <th>Data e Mbarimit</th>
+                <th>Makina/Shërbimi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ reservation.name }}</td>
+                <td>{{ reservation.phone }}</td>
+                <td>{{ reservation.start_date }}</td>
+                <td>{{ reservation.end_date }}</td>
+                <td>{{ reservation.car.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{% url 'home' %}" class="btn">Kthehu në faqen kryesore</a>
+
+</body>
+</html>
