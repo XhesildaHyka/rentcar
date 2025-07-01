@@ -1,5 +1,4 @@
 from django.db import models
-from hykarent.aplication import models
 from phonenumber_field.modelfields import PhoneNumberField
 
 
