@@ -31,7 +31,12 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'unsafe-secret')
 
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost').split(',')
+
+ALLOWED_HOSTS = [
+    'rentcar-fnr8.onrender.com',
+    'localhost',
+    '127.0.0.1',
+]
 
 
 # Application definition
