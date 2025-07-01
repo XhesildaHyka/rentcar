@@ -31,9 +31,6 @@ urlpatterns = [
     path('', include('hykarent.aplication.urls')),  # adjust to your app path
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
