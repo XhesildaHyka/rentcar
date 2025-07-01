@@ -76,7 +76,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'hykarent.wsgi.application'
+WSGI_APPLICATION = 'hykarent.hykarent.wsgi.application'
+
 
 
 # Database
