@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'hykarent.aplication',
-    'hykarent',
     'phonenumber_field',
 
 ]
