@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('aplication.urls')),  # your app urls
+    path('', include('hykarent.aplication.urls')),   # your app urls
 ]
 
 if settings.DEBUG:
