@@ -4,6 +4,7 @@
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 <style>
   body {
     font-family: 'Arial', sans-serif;
@@ -15,119 +16,174 @@
 
   h2 {
     text-align: center;
-    font-size: 2.8rem;
+    font-size: 2.4rem;
     margin-top: 30px;
     color: #222;
   }
 
   main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
   }
-/* 
+
   form {
     margin-bottom: 30px;
     text-align: center;
-  } */
+  }
 
-  form label, form select {
+  form label,
+  form select {
     font-size: 1.1rem;
     margin-right: 10px;
+    font-weight: 600;
+  }
+
+  .cars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  .car-card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: none;
+    transition: box-shadow 0.3s ease;
+    text-align: center;
+    max-width: 270px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .car-card img {
+    width: 250px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 0.75rem;
+  }
+
+
+  .car-card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+
+
+
+  .car-card h3 {
+    margin: 0 0 0.3rem;
+    font-size: 1.4rem;
+    color: #111;
+  }
+
+  .car-card p.description {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 0.75rem;
+    min-height: 40px;
+    /* keep cards equal height */
+  }
+
+  .car-card p.price {
+    margin: 0.25rem 0 1rem;
+    color: #d63384;
+    font-weight: 700;
+    font-size: 1.2rem;
+  }
+
+  .car-card a.btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #5d575a;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+
+  .car-card a.btn:hover {
+    background-color: #474144;
   }
 
   .pagination {
     text-align: center;
-    margin: 20px 0;
+    margin: 30px 0;
   }
 
   .pagination a {
     padding: 8px 16px;
-    background-color: #007bff;
+    background-color: #5d575a;
     color: white;
     margin: 0 5px;
     border-radius: 20px;
     text-decoration: none;
     transition: background 0.3s ease;
+    font-weight: 600;
   }
 
   .pagination a:hover {
-    background-color: #0056b3;
+    background-color: #474144;
   }
 
-  .makinat {
-    width: 100%;
-    padding: 40px 20px;
-    background-color: #fff;
-    border-radius: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  .pagination span {
+    font-weight: 600;
+    margin: 0 10px;
+    color: #333;
   }
 
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 30px;
-    justify-items: center;
-  }
+  /* Responsive tweaks */
+  @media (max-width: 576px) {
+    main {
+      padding: 10px;
+    }
 
-  .makina {
-    background: white;
-    padding: 20px;
- 
-    text-align: center;
-    width: 100%;
-    max-width: 300px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin-right: 105px;
-  }
+    /* Sort form styling */
+    form {
+      width: 100%;
+      display: flex;
+      /* align-items: center; */
+      margin-bottom: 20px;
+    }
 
-  .makina:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  }
+    form label {
+      margin-bottom: 8px;
+      font-size: 1rem;
+      text-align: center;
+    }
 
-  .makina img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 10px;
-  }
+    form select {
+      width: 80%;
+      max-width: 300px;
+      padding: 8px;
+      font-size: 1rem;
+      border-radius: 6px;
+    }
 
-  .makina h3 {
-    margin-top: 15px;
-    font-size: 1.6rem;
-    color: #111;
-  }
+    /* Cars grid container */
+    .cars-grid {
+      justify-content: center;
+      /* center cards */
+      grid-template-columns: 1fr;
+      /* single column */
+      gap: 15px;
+    }
 
-  .makina p {
-    margin: 10px 0;
-    color: #555;
-    font-size: 1rem;
-  }
+    /* Each card full width inside grid */
+    .car-card {
+      max-width: 100%;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
-  .makina .btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background: #007bff;
-    color: white;
-    text-decoration: none;
-    border-radius: 25px;
-    transition: background 0.3s ease;
-    margin-top: 10px;
-  }
-
-  .makina .btn:hover {
-    background: #0056b3;
-  }
-
-  footer {
-    background: #333;
-    color: white;
-    padding: 20px 0;
-    text-align: center;
+    .car-card img {
+      width: 100%;
+      height: auto;
+    }
   }
 </style>
 {% endblock %}
@@ -136,35 +192,39 @@
 {% include 'navbar.html' %}
 
 <main>
-  <form method="get">
-  <form method="get">
+  <form method="get" action="">
     <label for="sort">Sort by price:</label>
     <select name="sort" id="sort" onchange="this.form.submit()">
       <option value="default" {% if sort_order == 'default' %}selected{% endif %}>Default</option>
-      <option value="price_asc" {% if sort_order == 'price_asc' %}selected{% endif %}>Nga më e lira te më e shtrenjta</option>
-      <option value="price_desc" {% if sort_order == 'price_desc' %}selected{% endif %}>Nga më e shtrenjta te më e lira</option>
+      <option value="price_asc" {% if sort_order == 'price_asc' %}selected{% endif %}>From the cheapest to the most expensive.</option>
+      <option value="price_desc" {% if sort_order == 'price_desc' %}selected{% endif %}>From the most expensive to the cheapest.</option>
+
+
     </select>
   </form>
 
+  <h2>Cars</h2>
 
-
-  <section class="makinat">
-    <h2>Our cars:</h2>
-    <div class="container">
-      {% for rezerv in page_obj %}
-      <div class="makina">
-        <img src="{{ rezerv.image.url }}" alt="{{ rezerv.name }}">
-        <h3>{{ rezerv.name }}</h3>
-        <p>€ {{ rezerv.price }}/day</p>
-        <!-- <p><i class="fas fa-phone"></i> {{ rezerv.phone }}</p> -->
-        <a href="{% url 'detailpage' rezerv.pk %}" class="btn">Details</a>
-      </div>
-      {% empty %}
-      <p style="text-align: center; font-size: 1.2rem; color: #666;">Nuk ka makina për momentin./There are no cars available at the moment.</p>
-      {% endfor %}
+  <section class="cars-grid">
+    {% for rezerv in page_obj %}
+    <div class="car-card">
+      <img src="{{ rezerv.image.url }}" alt="{{ rezerv.name }}">
+      <h3>{{ rezerv.name }}</h3>
+      {% if rezerv.description %}
+      <p class="description">
+        <strong>Description:</strong> {{ rezerv.description}}
+      </p>
+      {% endif %}
+      <p class="price">€ {{ rezerv.price }} / day</p>
+      <a href="{% url 'detailpage' rezerv.pk %}" class="btn">See more</a>
     </div>
+    {% empty %}
+    <p style="text-align: center; font-size: 1.2rem; color: #666;">Nuk ka makina për momentin./There are no cars
+      available at the moment.</p>
+    {% endfor %}
   </section>
-    <div class="pagination">
+
+  <div class="pagination">
     {% if page_obj.has_previous %}
     <a href="?page={{ page_obj.previous_page_number }}&sort={{ sort_order }}">Previous</a>
     {% endif %}
@@ -177,11 +237,4 @@
   </div>
 </main>
 
-<script src="{% static 'js/script.js' %}"></script>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-<script>
-  (function () {
-    emailjs.init('QsnVbhy-zMfNwoVYN');
-  })();
-</script>
 {% endblock %}
