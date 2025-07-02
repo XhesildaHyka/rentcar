@@ -56,6 +56,7 @@ class Rezerv(models.Model):
     is_bmv = models.BooleanField(default=False, null=True, blank=True)
     is_mercedes = models.BooleanField(default=False, null=True, blank=True)
     is_audi = models.BooleanField(default=False, null=True, blank=True)
+
     
     def __str__(self):
         return self.name
@@ -77,10 +78,10 @@ class InsuranceOption(models.Model):
     name = models.CharField(max_length=100)
     price_per_day = models.DecimalField(max_digits=6, decimal_places=2)
 
-class DeliveryLocation(models.Model):
-    car = models.ForeignKey(Rezerv, related_name='delivery_locations', on_delete=models.CASCADE)
-    location = models.CharField(max_length=100)
-    price = models.DecimalField(max_digits=6, decimal_places=2)
+# class DeliveryLocation(models.Model):
+#     car = models.ForeignKey(Rezerv, related_name='delivery_locations', on_delete=models.CASCADE)
+#     location = models.CharField(max_length=100)
+#     price = models.DecimalField(max_digits=6, decimal_places=2)
 
 class CarouselImage(models.Model):
     image1 = models.ImageField(upload_to='carousel_images/', blank=True, null=True, default=default_image)

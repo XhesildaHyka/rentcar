@@ -22,11 +22,11 @@ class InsuranceOptionInline(admin.TabularInline):
     model = InsuranceOption
     extra = 1
 
-class DeliveryLocationInline(admin.TabularInline):
-    model = DeliveryLocation
-    extra = 1
+# class DeliveryLocationInline(admin.TabularInline):
+#     model = DeliveryLocation
+#     extra = 1
 
 @admin.register(Rezerv)
 class CarAdmin(admin.ModelAdmin):
-    inlines = [CarPhotoInline, InsuranceOptionInline, DeliveryLocationInline]
+    inlines = [CarPhotoInline, InsuranceOptionInline]
     list_display = ['name', 'price', 'year']

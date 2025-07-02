@@ -11,3 +11,4 @@ class ReservationForm(forms.ModelForm):
             'pickup_location': forms.TextInput(),
             'dropoff_location': forms.TextInput(),
         }
+

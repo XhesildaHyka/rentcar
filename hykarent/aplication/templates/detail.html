@@ -10,7 +10,7 @@
     max-height: 500px;
     object-fit: cover;
     border-radius: 14px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
   }
 
   .carousel-thumbnails {
@@ -30,11 +30,12 @@
     transition: transform 0.3s ease;
     filter: brightness(0.9);
   }
+
   .carousel-thumbnails img:hover,
   .carousel-thumbnails img.active-thumb {
     filter: brightness(1);
     transform: scale(1.07);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   }
 
   /* Card styling */
@@ -42,7 +43,7 @@
     background: #fff;
     border-radius: 16px;
     padding: 36px 30px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
   }
 
   /* Headings */
@@ -128,6 +129,7 @@
     background-color: #eaeaea;
     color: #555;
   }
+
   .btn-back:hover {
     background-color: red;
     color: white;
@@ -137,6 +139,7 @@
     background-color: red;
     color: white;
   }
+
   .btn-cart:hover {
     background-color: red;
   }
@@ -169,9 +172,9 @@
 
 <div class="carousel-thumbnails">
   {% for photo in detailItem.photos.all %}
-    {% if photo.image %}
-    <img src="{{ photo.image.url }}" data-index="{{ forloop.counter0 }}" alt="Thumb">
-    {% endif %}
+  {% if photo.image %}
+  <img src="{{ photo.image.url }}" data-index="{{ forloop.counter0 }}" alt="Thumb">
+  {% endif %}
   {% endfor %}
 </div>
 {% endif %}
@@ -180,7 +183,7 @@
   <div class="row justify-content-center">
     <div class="col-md-10 col-lg-8">
       <div class="card detail-card">
-        <div >
+        <div>
           <h2>{{ detailItem.name }}</h2>
           <p class="description">{{ detailItem.description }}</p>
           <p class="price">€{{ detailItem.price }}/day</p>
@@ -196,7 +199,8 @@
               <li>Engine Capacity: {{ detailItem.engine_capacity }} cc</li>
               <li>Fuel Policy: {{ detailItem.fuel_policy }}</li>
               <li>Working Hours: {{ detailItem.working_hours }}</li>
-              <li>Delivery Outside Working Hours: {% if detailItem.delivery_outside_hours %}Yes{% else %}No{% endif %}</li>
+              <li>Delivery Outside Working Hours: {% if detailItem.delivery_outside_hours %}Yes{% else %}No{% endif %}
+              </li>
               <li>Deposit Required: {% if detailItem.deposit_required %}Yes{% else %}No{% endif %}</li>
               <li>Cancel free of charge before: {{ detailItem.cancel_before_days }} days</li>
               <li>Notice period: {{ detailItem.notice_period }} days</li>
@@ -215,7 +219,7 @@
           </div>
 
           <!-- Delivery Section -->
-          <div class="info-section">
+          <!-- <div class="info-section">
             <h5>Delivery Locations</h5>
             <ul>
               {% for location in detailItem.delivery_locations.all %}
@@ -224,29 +228,56 @@
                 <li>No delivery options.</li>
               {% endfor %}
             </ul>
+          </div> -->
+          <!-- Delivery Section -->
+          <div class="info-section">
+            <h5>Delivery Locations</h5>
+            <ul>
+              <li>Vlorë</li>
+              <li>Tiranë</li>
+              <li>Fier</li>
+              <li>Gjirokastër</li>
+            </ul>
           </div>
+
 
           <!-- Insurance Section -->
           <div class="info-section">
             <h5>Insurance Options</h5>
             <ul>
               {% for insurance in detailItem.insurance_options.all %}
-                <li>{{ insurance.name }} – €{{ insurance.price_per_day }}/day</li>
+              <li>{{ insurance.name }} – €{{ insurance.price_per_day }}/day</li>
               {% empty %}
-                <li>No insurance available.</li>
+              <li>No insurance available.</li>
               {% endfor %}
             </ul>
           </div>
 
           <!-- Cross Border Section -->
+          <!-- Cross Border Section -->
           <div class="info-section">
             <h5>Cross Border Info</h5>
             <ul>
-              <li>Allowed: {% if detailItem.cross_border_allowed %}Yes (€{{ detailItem.cross_border_fee }}){% else %}No{% endif %}</li>
-              <li>Assistance: {% if detailItem.cross_border_assistance %}Yes (€{{ detailItem.cross_border_assistance_fee }}){% else %}No{% endif %}</li>
+              <li>
+                Allowed:
+                {% if detailItem.cross_border_allowed %}
+                Yes (€{{ detailItem.cross_border_fee }} fee) 
+                {% else %}
+                No
+                {% endif %}
+              </li>
+              <li>
+                Assistance:
+                {% if detailItem.cross_border_assistance %}
+                Yes (€{{ detailItem.cross_border_assistance_fee }} fee )
+                {% else %}
+                No
+                {% endif %}
+              </li>
               <li>KM Limit: {{ detailItem.cross_border_km_limit }} km</li>
             </ul>
           </div>
+
 
           <div class="btn-container">
             <a href="{% url 'rezervpage' id=1 %}" class="btn btn-custom btn-back">Back to cars</a>
@@ -258,7 +289,7 @@
   </div>
 </div>
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     const thumbnails = document.querySelectorAll('.carousel-thumbnails img');
     const carouselElement = document.getElementById('photoCarousel');
 

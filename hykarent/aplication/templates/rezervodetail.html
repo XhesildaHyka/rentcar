@@ -60,45 +60,96 @@
   }
 
   .btn-cart {
-    background-color: green;
+    background-color: #28a745;
     color: white;
+    font-weight: 600;
+    padding: 14px 24px;
+    border-radius: 8px;
+    border: none;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    cursor: pointer;
+    width: 100%;
   }
 
   .btn-cart:hover {
-    background-color: darkgreen;
+    background-color: #218838;
   }
 
   /* New reservation form styles */
   .reservation-form {
-    background-color: #f8f9fa;
-    padding: 20px;
+    background-color: #fff;
+    padding: 30px 40px;
     border-radius: 12px;
-    margin-top: 20px;
+    margin-top: 30px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .reservation-form h3 {
     color: #343a40;
+    font-weight: 700;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+
+  .reservation-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #495057;
   }
 
   .reservation-form input,
+  .reservation-form select,
   .reservation-form textarea {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 6px;
-    border: 1px solid #ced4da;
+    padding: 12px 14px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1.8px solid #ced4da;
+    font-size: 1rem;
+    color: #495057;
+    transition: border-color 0.2s ease;
   }
 
-  .reservation-form button {
-    background: var(--secondary-color);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 6px;
+  .reservation-form input:focus,
+  .reservation-form select:focus,
+  .reservation-form textarea:focus {
+    outline: none;
+    border-color: #d63384;
+    box-shadow: 0 0 5px rgba(214, 51, 132, 0.4);
   }
 
-  .reservation-form button:hover {
-    background: var(--secondary-color)
+  /* Responsive tweaks */
+  @media (max-width: 576px) {
+    .reservation-form {
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .btn-cart {
+      padding: 12px 16px;
+      font-size: 1rem;
+    }
+  }
+
+  /* Message styles */
+  .message-error {
+    color: #dc3545;
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  .message-success {
+    color: #28a745;
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-align: center;
   }
 </style>
 {% endblock %}
@@ -109,18 +160,18 @@
 <div class="container py-5">
   <div class="reservation-form shadow-lg">
     <h3>Rezervo {{ detailItem.name }}</h3>
+
     {% if messages %}
-    {% for message in messages %}
-    {% if 'error' in message.tags %}
-    <p style="color: red;">{{ message }}</p>
-    {% else %}
-    <p style="color: green;">{{ message }}</p>
-    {% endif %}
-    {% endfor %}
+      {% for message in messages %}
+        <p class="{% if 'error' in message.tags %}message-error{% else %}message-success{% endif %}">
+          {{ message }}
+        </p>
+      {% endfor %}
     {% endif %}
 
     <form method="post" action="">
       {% csrf_token %}
+      
       <div>
         <label for="id_name">Emri (Name)</label>
         {{ form.name }}
@@ -137,13 +188,25 @@
       </div>
 
       <div>
-        <label for="id_pickup_location">Vendi i marrjes (Pickup Location)</label>
-        {{ form.pickup_location }}
+        <label for="pickup_location">Vendi i marrjes (Pickup Location)</label>
+        <select name="pickup_location" id="pickup_location" required>
+          <option value="" disabled selected>Zgjidh një vend</option>
+          <option value="fier">Fier</option>
+          <option value="tirane">Tirane</option>
+          <option value="gjirokaster">Gjirokaster</option>
+          <option value="vlore">Vlore</option>
+        </select>
       </div>
 
       <div>
-        <label for="id_dropoff_location">Vendi i dorëzimit (Drop-off Location)</label>
-        {{ form.dropoff_location }}
+        <label for="dropoff_location">Vendi i dorëzimit (Drop-off Location)</label>
+        <select name="dropoff_location" id="dropoff_location" required>
+          <option value="" disabled selected>Zgjidh një vend</option>
+          <option value="fier">Fier</option>
+          <option value="tirane">Tirane</option>
+          <option value="gjirokaster">Gjirokaster</option>
+          <option value="vlore">Vlore</option>
+        </select>
       </div>
 
       <div>
@@ -156,7 +219,7 @@
         {{ form.end_date }}
       </div>
 
-      <button type="submit" class="btn btn-cart mt-2">Përfundo rezervimin! / Complete the booking!</button>
+      <button type="submit" class="btn-cart mt-3">Përfundo rezervimin! / Complete the booking!</button>
     </form>
   </div>
 </div>

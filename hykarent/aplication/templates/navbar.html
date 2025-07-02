@@ -1,5 +1,76 @@
 {% load static %}
 
+<style>
+  .nav-links {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex: 2;
+    padding: 0;
+    margin: 0;
+    flex-wrap: nowrap;
+    /* ✅ force all links to stay in one line */
+    overflow: hidden;
+  }
+
+  /* Default: Mobile & Tablet (up to 1023px) */
+  .responsive-search-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .responsive-search-container form {
+    display: flex;
+    flex-grow: 1;
+  }
+
+  .responsive-search-container input[type="text"] {
+    flex-grow: 1;
+    margin-right: 8px;
+  }
+
+  .responsive-search-container button {
+    padding: 4px 10px;
+    font-size: 14px;
+  }
+
+  .responsive-search-container .nav-toggle {
+    font-size: 24px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  /* Desktop: 1024px and up */
+  @media (min-width: 1024px) {
+    .navbar-links {
+      flex-wrap: nowrap;
+    }
+
+    .responsive-search-container {
+      display: block;
+      width: auto;
+    }
+
+    .responsive-search-container form {
+      display: flex;
+      width: 100%;
+      margin-bottom: 0;
+    }
+
+    .responsive-search-container .nav-toggle {
+      margin-top: 10px;
+      font-size: 26px;
+    }
+
+    .nav-links li {
+      padding: 0;
+    }
+  }
+</style>
 <header style="background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.1); padding: 10px 0;">
   <div class="container">
     <nav class="navbar">
@@ -18,16 +89,21 @@
         <li><a href="{% url 'rezervpage' id=1 %}">Book</a></li>
         <li><a href="{% url 'contactpage' %}">Contact us</a></li>
       </ul>
+      <div></div>
 
-      <!-- Right: Search Bar -->
-      <form id="searchForm" class="d-flex" role="search" action="{% url 'search' %}" method="get">
-        <input class="form-control me-2" type="text" name="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-primary" type="submit">
-          <i class="fas fa-search"></i>
-        </button>
-      </form>
+      <div class="responsive-search-container">
+        <!-- Search Form -->
+        <form id="searchForm" role="search" action="{% url 'search' %}" method="get">
+          <input class="form-control" type="text" name="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-primary" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
 
-      <div class="nav-toggle" onclick="toggleMenu()">☰</div>
+        <!-- Menu Toggle (☰) -->
+        <div class="nav-toggle" onclick="toggleMenu()">☰</div>
+      </div>
+
     </nav>
   </div>
 </header>
@@ -44,7 +120,7 @@
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 20px;
+
   }
 
   .navbar-left {
@@ -68,16 +144,7 @@
     transform: scale(1.05);
   }
 
-  .nav-links {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex: 2;
-    padding: 0;
-    margin: 0;
-    flex-wrap: wrap;
-  }
+
 
   .nav-links li a {
     font-family: 'Playfair Display', serif;
@@ -113,6 +180,7 @@
   }
 
   @media (max-width: 768px) {
+
     .nav-links,
     .search-form {
       display: none;

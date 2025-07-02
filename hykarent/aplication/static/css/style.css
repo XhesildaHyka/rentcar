@@ -228,7 +228,6 @@ nav ul {
 nav ul li a {
     color: white;
     text-decoration: none;
-    padding: 10px 15px;
     border-radius: 5px;
     transition: all 0.3s ease;
     font-weight: 500;
@@ -777,4 +776,5 @@ footer p {
         margin-top: 85px;
         margin-left: -130px;
     }
+    
 }
