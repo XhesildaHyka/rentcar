@@ -141,6 +141,7 @@
       padding: 10px;
     }
 
+  
     /* Sort form styling */
     form {
       width: 100%;
@@ -204,13 +205,12 @@
 <main>
   <form method="get" action="">
     <label for="sort">Sort by price:</label>
-    <select name="sort" id="sort" onchange="this.form.submit()">
-      <option value="default" {% if sort_order == 'default' %}selected{% endif %}>Default</option>
-      <option value="price_asc" {% if sort_order == 'price_asc' %}selected{% endif %}>From the cheapest to the most expensive.</option>
-      <option value="price_desc" {% if sort_order == 'price_desc' %}selected{% endif %}>From the most expensive to the cheapest.</option>
+      <select name="sort" id="sort" onchange="this.form.submit()">
+        <option value="default" {% if sort_order == "default" %}selected{% endif %}>Default</option>
+        <option value="price_asc" {% if sort_order == "price_asc" %}selected{% endif %}>From the cheapest to the most expensive.</option>
+        <option value="price_desc" {% if sort_order == "price_desc" %}selected{% endif %}>From the most expensive to the cheapest.</option>
+      </select>
 
-
-    </select>
   </form>
 
   <h2>Cars</h2>
