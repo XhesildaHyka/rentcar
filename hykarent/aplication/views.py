@@ -16,9 +16,7 @@ def home(request):
     # compact_cars = Rezerv.objects.filter(is_compact=True)   
     luxury_cars = Rezerv.objects.filter(is_luxury=True)
     suv_cars = Rezerv.objects.filter(is_suv=True)
-    bmv_cars = Rezerv.objects.filter(is_bmv=True)
-    mercedes_cars = Rezerv.objects.filter(is_mercedes=True)
-    audi_cars = Rezerv.objects.filter(is_audi=True)
+ 
 
     context = {
         'rent': rent,
@@ -28,9 +26,7 @@ def home(request):
         # 'compact_cars': compact_cars,
         'luxury_cars': luxury_cars,
         'suv_cars': suv_cars,
-        'bmv_cars': bmv_cars,
-        'mercedes_cars': mercedes_cars,
-        'audi_cars': audi_cars,
+
 
     }
     return render(request, 'home.html', context)
@@ -100,17 +96,6 @@ def carousel_images(request):
     carousel_images = CarouselImage.objects.get()
     return render(request, 'home.html', {'carousel_images': carousel_images})
 
-def audi(request):
-    audi_cars = Rezerv.objects.filter(is_audi=True)
-    return render(request, 'audi.html', {'audi_cars': audi_cars})
-
-def mercedes(request):
-    mercedes_cars = Rezerv.objects.filter(is_mercedes=True)
-    return render(request, 'mercedes.html', {'mercedes_cars': mercedes_cars})
-
-def bmv(request):
-    bmv_cars = Rezerv.objects.filter(is_bmv=True)
-    return render(request, 'bmv.html', {'bmv_cars': bmv_cars})
 
 def suv(request):
     suv_cars = Rezerv.objects.filter(is_suv=True)
@@ -124,9 +109,6 @@ def economy(request):
 def luxury(request):
     luxury_cars = Rezerv.objects.filter(is_luxury=True)
     return render(request, 'luxurycar.html', {'luxury_cars': luxury_cars})
-
-
-
 
 def about(request):
     return render(request, 'aboutus.html')

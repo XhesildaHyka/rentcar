@@ -1,5 +1,12 @@
 from django.urls import path
 from . import views
+from django.contrib.sitemaps.views import sitemap
+from .sitemaps import StaticViewSitemap, CarSitemap
+
+sitemaps = {
+    'static': StaticViewSitemap,
+    'cars': CarSitemap,
+}
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -11,13 +18,14 @@ urlpatterns = [
     path('search/', views.search, name='search'),
     path('rezervimi-sukses/<int:reservation_id>/', views.reservation_success, name='reservation_success'),
     path("detail/<int:id>", views.detail, name="detailpage"),
-    path("audi/", views.audi, name="audi"),
-    path("mercedes/", views.mercedes, name="mercedes"), 
-    path("bmv/", views.bmv, name="bmv"),
     path("suv/", views.suv, name="suv"),
     # path("compact/", views.compact, name="compact"),
     path("economy/", views.economy, name="economy"),
     path("luxury/", views.luxury, name="luxury"),
     path("about/", views.about, name="about"),
+    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
     
 ]
+
+
+

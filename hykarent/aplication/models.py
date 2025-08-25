@@ -53,9 +53,7 @@ class Rezerv(models.Model):
     is_economy = models.BooleanField(default=False, null=True, blank=True)
     is_luxury = models.BooleanField(default=False, null=True, blank=True)
     is_suv = models.BooleanField(default=False, null=True, blank=True)
-    is_bmv = models.BooleanField(default=False, null=True, blank=True)
-    is_mercedes = models.BooleanField(default=False, null=True, blank=True)
-    is_audi = models.BooleanField(default=False, null=True, blank=True)
+
 
     
     def __str__(self):

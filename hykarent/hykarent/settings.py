@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'hykarent.aplication',
     'phonenumber_field',
+    'django.contrib.sitemaps',
 
 ]
 
